@@ -1,0 +1,69 @@
+.homepage-main {
+    background-color: #595A63;
+    color: white;
+    height: 100vh;
+}
+
+.homepage-container {
+    flex: 1;
+    height: 100%;
+}
+
+.mychats-window {
+    display: flex;
+    flex-direction: column;
+    background-color: #1F2029;
+    height: 100%;
+    border-right: 1px solid #595A63;
+}
+
+.mychats-window-heading {
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #595A63;
+    background-color: rgba(52, 53, 61, 0.502);
+    height: 50px;
+}
+
+.logout-button {
+    cursor: pointer;
+}
+
+.inactiveTab.MuiTab-root {
+    color: white;
+}
+
+.chat-window {
+    background-color: #1F2029;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.single-chat-row {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin: 0rem 1rem;
+    border-bottom: 1px solid #595A63;
+    cursor: pointer;
+}
+
+.welcome-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.welcome-chat-text {
+    padding: 1.5rem;
+}
+
+.welcome-chat-text-p {
+    padding: .3rem;
+    font-size: 16px;
+}
