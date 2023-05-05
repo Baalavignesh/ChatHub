@@ -13,6 +13,21 @@ async function GetAllUsers() {
 
   return response;
 }
+async function SearchUser(username, userId) {
+  let token = reactLocalStorage.get("authToken");
+  const response = await fetch(
+    RootApi + `/Users/GetSpecificUser/${userId}/${username}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`,
+      },
+    }
+  );
+
+  return response;
+}
 
 async function GetMyChats(userId) {
   let token = reactLocalStorage.get("authToken");
@@ -27,4 +42,4 @@ async function GetMyChats(userId) {
   return response;
 }
 
-export { GetAllUsers, GetMyChats };
+export { GetAllUsers, GetMyChats, SearchUser };

@@ -1,11 +1,11 @@
-import { Avatar, Button, Grid, Tab, Tabs } from "@mui/material";
+import { Avatar, Button, Grid, Tab, Tabs, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { reactLocalStorage } from "reactjs-localstorage";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { deepOrange } from "@mui/material/colors";
 import "./home.styles.css";
-import { GetMyChats } from "../../api_calls/UserInfo";
+import { GetMyChats, SearchUser } from "../../api_calls/UserInfo";
 import ChatWindow from "../../components/chat-window/chat-window";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -81,6 +81,13 @@ function HomePage() {
     }
   }, [connection]);
 
+  let handleSearch = async (e) => {
+    let response = await SearchUser(e.target.value, userId);
+    let responseData = await response.json();
+    console.log(responseData.data);
+    setMyChats(responseData.data);
+  };
+
   let handleLogout = () => {
     reactLocalStorage.clear();
     navigate("/login");
@@ -154,29 +161,38 @@ function HomePage() {
               />
             </Tabs>
             {tabValue === 0 ? (
-              myChats.map((value, index) => {
-                return (
-                  <div
-                    key={value.receiverId}
-                    className="single-chat-row"
-                    onClick={() => {
-                      console.log(value);
-                      dispatch(setChat(value));
-                    }}
-                  >
-                    <AvatarBadge
-                      name={value.receiverName}
-                      isOnline={value.isOnline}
-                    />
+              <>
+                <div className="search-box">
+                  <TextField
+                    fullWidth
+                    id="filled-basic"
+                    label="Search User"
+                    variant="filled"
+                    size="small"
+                    onChange={handleSearch}
+                  />
+                </div>
 
-                    <h3>
-                      {value.receiverId === userId
-                        ? value.senderName
-                        : value.receiverName}
-                    </h3>
-                  </div>
-                );
-              })
+                {myChats.length != 0 ? myChats.map((value, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="single-chat-row"
+                      onClick={() => {
+                        console.log(value);
+                        dispatch(setChat(value));
+                      }}
+                    >
+                      <AvatarBadge
+                        name={value.receiverName || value.username}
+                        isOnline={value.isOnline}
+                      />
+
+                      <h3>{value.receiverName || value.username}</h3>
+                    </div>
+                  );
+                }): <h2 style={{textAlign:"center"}}>No user found</h2>}
+              </>
             ) : tabValue == 1 ? (
               <div>Group</div>
             ) : (

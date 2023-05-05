@@ -46,8 +46,8 @@ function ChatWindow(props) {
   let handleSendMessage = async () => {
     if (message.length > 0) {
       await AddMessageToChat({
-        senderId: chatInfo.senderId,
-        receiverId: chatInfo.receiverId,
+        senderId: chatInfo.senderId || userId,
+        receiverId: chatInfo.receiverId || chatInfo.,
         message: message,
       });
 
@@ -114,14 +114,16 @@ function ChatWindow(props) {
     <>
       <div className="chat-window-heading-main">
         <Avatar
-          alt={chatInfo.receiverName}
+          alt={chatInfo.receiverName || chatInfo.username}
           sx={{ width: 40, height: 40 }}
           style={{
             marginRight: "2rem",
             border: "1px solid #845EF1",
           }}
         />
-        <h2 className="chat-window-heading">{chatInfo.receiverName}</h2>
+        <h2 className="chat-window-heading">
+          {chatInfo.receiverName || chatInfo.username}
+        </h2>
       </div>
       <div className="chat-messages-container">
         <div className="all-messages" ref={chatContainerRef}>

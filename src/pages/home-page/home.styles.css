@@ -42,6 +42,14 @@
     flex: 1;
 }
 
+.search-box {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0rem;
+    margin: 0rem 1rem;
+    border-radius: 4rem;
+}
+
 .single-chat-row {
     display: flex;
     align-items: center;
